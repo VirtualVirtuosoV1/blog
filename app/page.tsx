@@ -1,8 +1,10 @@
 import styles from "./page.module.css";
 import Link from "next/link";
-import { posts } from "@/posts";
+import { getAllPosts  } from "@/posts";
 
 export default function Home() {
+  const posts = getAllPosts(); // now from Markdown
+
 
   return (
     <main className={styles.main}>
@@ -46,7 +48,9 @@ export default function Home() {
                 <Link href={`/posts/${post.slug}`} className={styles.postLink}>
                   {post.title}
                 </Link>
-                <div className={styles.postMeta}>~ {post.date}</div>
+                <div className={styles.postMeta}>
+                  ~ {new Date(post.date).toLocaleString()}
+                </div>
               </li>
             ))}
           </ul>

@@ -1,26 +1,22 @@
-// app/posts/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { getPostBySlug, posts } from "@/posts";
+import { getPostBySlug, getAllPosts } from "@/posts";
 import styles from "./post.module.css";
 
 type PostPageProps = {
-  // params is a Promise now
   params: Promise<{ slug: string }>;
 };
 
-// Optional: pre-generate all post routes at build time
 export function generateStaticParams() {
+  const posts = getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  // ⬇️ unwrap the Promise to get the real params object
   const { slug } = await params;
 
   const post = getPostBySlug(slug);
 
   if (!post) {
-    // This intentionally doesn't "return" anything – it throws a special 404
     notFound();
   }
 
@@ -32,9 +28,15 @@ export default async function PostPage({ params }: PostPageProps) {
         </a>
 
         <h1 className={styles.title}>{post.title}</h1>
-        <p className={styles.date}>~ {post.date}</p>
+        <p className={styles.date}>
+          ~ {new Date(post.date).toLocaleString()}
+        </p>
 
-        <p className={styles.content}>{post.content}</p>
+        {/* Render Markdown as HTML */}
+        <div
+          className={styles.content}
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
       </article>
     </main>
   );

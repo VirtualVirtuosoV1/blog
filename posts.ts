@@ -1,35 +1,71 @@
-// src/posts.ts
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
-export type Post = {
+const postsDirectory = path.join(process.cwd(), "content", "posts");
+
+export type PostMeta = {
   slug: string;
   title: string;
   date: string;
-  content: string;
 };
 
-export const posts: Post[] = [
-  {
-    slug: "Is-it-even-worth-it-anymore",
-    title: "is-it-even-worth-it-anymore",
-    date: "26th January 2026, 2:24am",
-    content: `
-This is the first fake post.
+export type Post = PostMeta & {
+  contentHtml: string;
+};
 
-Write whatever here; it will show up on the post page. Hopefully?
-Line breaks are preserved because of CSS (white-space: pre-line).
-    `,
-  },
-  {
-    slug: "hi-bears",
-    title: "hi-bears",
-    date: "22nd January 2026, 11:15pm",
-    content: `
-Second post. Still fake. Still deeply meaningful.
-AND IT WORKS! WOOO!
-    `,
-  },
-];
+function getPostFileNames(): string[] {
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+  return fs.readdirSync(postsDirectory).filter((name) => name.endsWith(".md"));
+}
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return posts.find((post) => post.slug === slug);
+// For the homepage list
+export function getAllPosts(): PostMeta[] {
+  const fileNames = getPostFileNames();
+
+  const posts = fileNames.map((fileName) => {
+    const slug = fileName.replace(/\.md$/, "");
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+
+    const matterResult = matter(fileContents);
+
+    return {
+      slug,
+      title: matterResult.data.title as string,
+      date: matterResult.data.date as string,
+    };
+  });
+
+  // sort by date (newest first)
+  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+// For a single post page
+export function getPostBySlug(slug: string): Post | null {
+  const fullPath = path.join(postsDirectory, `${slug}.md`);
+
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const matterResult = matter(fileContents);
+
+  const processedContent = remark()
+    .use(html)
+    .processSync(matterResult.content);
+
+  const contentHtml = processedContent.toString();
+
+  return {
+    slug,
+    title: matterResult.data.title as string,
+    date: matterResult.data.date as string,
+    contentHtml,
+  };
 }

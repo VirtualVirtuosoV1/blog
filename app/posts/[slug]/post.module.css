@@ -31,7 +31,23 @@
 }
 
 .content {
-  white-space: pre-line; /* keeps the line breaks from the template string */
-  line-height: 1.6;
+  line-height: 1.7;
   font-size: 0.98rem;
+}
+
+.content p {
+  margin-bottom: 1rem;
+}
+
+.content h2,
+.content h3,
+.content h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.content ul,
+.content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
 }
