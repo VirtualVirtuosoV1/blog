@@ -1,0 +1,37 @@
+.main {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.article {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.content {
+  white-space: pre-line; /* keeps the line breaks from the template string */
+  line-height: 1.6;
+  font-size: 0.98rem;
+}

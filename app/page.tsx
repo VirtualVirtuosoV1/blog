@@ -1,4 +1,6 @@
 import styles from "./page.module.css";
+import Link from "next/link";
+import { posts } from "@/posts";
 
 export default function Home() {
 
@@ -35,11 +37,19 @@ export default function Home() {
 
         </header>
 
-        {/* Newest posts */}
-        <section className={styles.sectionTitle}>
-          <h2>Newest posts</h2>
+        <section>
+          <h2 className={styles.sectionTitle}>Newest posts</h2>
 
-          
+          <ul className={styles.postList}>
+            {posts.map((post) => (
+              <li key={post.slug} className={styles.postItem}>
+                <Link href={`/posts/${post.slug}`} className={styles.postLink}>
+                  {post.title}
+                </Link>
+                <div className={styles.postMeta}>~ {post.date}</div>
+              </li>
+            ))}
+          </ul>
         </section>
 
       </div>
