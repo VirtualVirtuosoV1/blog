@@ -1,0 +1,52 @@
+/* src/app/page.module.css */
+
+.main {
+  min-height: 100vh;
+  background: #0f172a; /* dark blue-ish */
+  color: #e5e7eb;      /* light grey */
+}
+
+.wrapper {
+  max-width: 48rem;    /* ~768px */
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.nav a:hover {
+  opacity: 0.8;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* This lets you write multi-line text and keep the linebreaks */
+.introText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
