@@ -12,7 +12,7 @@ export default function BlogsPage() {
           <nav className={styles.nav}>
             <Link href="/">Home</Link>
             <Link href="/blogs">Blogs</Link>
-            <a href="#">About</a>
+            <a href="/about">About</a>
             <a href="#">Contact</a>
           </nav>
 

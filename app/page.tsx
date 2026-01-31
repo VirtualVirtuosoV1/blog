@@ -13,10 +13,8 @@ export default function Home() {
           <nav className={styles.nav}>
             <Link href="/">Home</Link>
             <Link href="/blogs">Blogs</Link>
-            
-            <a href="#">
-              About
-            </a>
+            <Link href="/about">About</Link>
+
             <a href="#">
               Contact
             </a>
