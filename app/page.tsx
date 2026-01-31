@@ -3,8 +3,7 @@ import Link from "next/link";
 import { getAllPosts  } from "@/posts";
 
 export default function Home() {
-  const posts = getAllPosts(); // now from Markdown
-
+  const posts = getAllPosts().slice(0, 3);
 
   return (
     <main className={styles.main}>
@@ -12,12 +11,9 @@ export default function Home() {
 
         <header className={styles.header}>
           <nav className={styles.nav}>
-            <a href="#">
-              Home
-            </a>
-            <a href="#">
-              Blogs
-            </a>
+            <Link href="/">Home</Link>
+            <Link href="/blogs">Blogs</Link>
+            
             <a href="#">
               About
             </a>
